@@ -12,7 +12,7 @@ The gear ratio from the shoulder motor to the upper arm is twice that of the elb
 In addition, the gripper is automatically pointing along the radial line:
 This is achieved without needing to drive the yaw motor (angle R): the yaw is not only coupled to its own motor, but also coupled to the elbow motor!
 
-At the University of Amsterdam, the UMI-RTX robot is used to play chess [4].
+At the University of Amsterdam, the UMI-RTX robot was used to play chess [4], which it still can do (with code ported to Ubuntu 20.04).
 
 [1] Tim Jones, <a href=http://davidbuckley.net/RS/History/LondonRobotics85/TimJonesUMI.htm>Developing a Personal Robot from Concept to Final Product</a>, Personal Robotics Seminar, London, UK, 3rd July 1985.
 
