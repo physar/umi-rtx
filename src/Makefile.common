@@ -1,0 +1,9 @@
+MACHINE         =       Linux
+# SunOS 4.1.x
+#CPP=/lib/cpp
+
+# Solaris 2.x
+#CPP=/usr/ccs/lib/cpp
+CPP=cpp
+
+DEPGEN = $(CPP) -M $(CPPFLAGS)

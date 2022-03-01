@@ -1,0 +1,19 @@
+ifeq ($(shell uname -s),Linux)
+OSTYPE=linux
+CFLAGS+=-DLINUX -DSVR4
+#CFLAGS+=-DSVR4
+RANLIB=ranlib
+else # Solaris
+# SunOS 4.1.x
+RANLIB=ranlib
+
+# Solaris 2.x
+RANLIB=/bin/true
+LDLIBS +=-lsocket -lnsl -lelf
+CFLAGS +=-DSVR4
+endif
+
+CC=gcc
+CFLAGS +=-Wall
+
+include ../Makefile.common
