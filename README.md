@@ -6,7 +6,7 @@ The upper arm and lower arm have the same length: AB == BC.  This means that you
 The gear ratio from the shoulder motor to the upper arm is twice that of the elbow motor to the lower arm. To move the wrist in a radial line, both motors are driven at the same speed but in opposite directions. The benefit of this arrangement is that the robot controller can keep track of the position of the wrist in cylindrical coordinates very easily, by simple calculations based on the motor encoder counts.
 
 <figure>
-<img src="arm1.png" alt="top view on the UMI-RTX arm" />
+<img src="images/arm1.png" alt="top view on the UMI-RTX arm" />
 </figure>
 
 In addition, the gripper is automatically pointing along the radial line:
