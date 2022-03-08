@@ -2,7 +2,7 @@ MAKEFILE	= Makefile
 
 DEST		= ../..
 
-CPPFLAGS	= -I../../include/umi-drivers -I../../include/bsd
+CPPFLAGS	= -I../../include/umi-drivers -I../../include -I../../include/bsd
 
 CFLAGS		= -g -D LINUX
 
