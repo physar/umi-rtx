@@ -19,11 +19,11 @@ CC = gcc -ggdb  -Wall
 
 INCLUDE= -I . -I ../../include/umi-drivers -I ../../include/bsd
 
-DEST		= .
+DEST		= ../..
 
-CFLAGS		= -DRTXD -DNOLOCKING -DDEBUG -Wno-unused-but-set-variable
+CFLAGS		= -DRTXD -DNOLOCKING -DDEBUG -Wno-unused-but-set-variable -g
 
-LDFLAGS		= 
+LDFLAGS		=  
 
 LIBS		= ../hostlib/libhost.a
 
@@ -35,23 +35,40 @@ OBJS		= $(SRCS:.c=.o)
 
 PROGRAM		= rtxd
 
+LIB		= libvrtx.a
+
 MAKELIBS	= true
 
 CHOWN		= sudo chgrp dialout
 
 MODE		= 2755
 
-all: $(PROGRAM)
+all: install
 
 include ../Makefile.std
 
+.PHONY: install
+install: $(PROGRAM) $(LIB)
+	/usr/bin/getent group dailout 2>&1 > /dev/null || sudo /usr/sbin/groupadd dailout
+	install $(PROGRAM) $(DEST)/bin
+	install $(LIB) $(DEST)/lib
+	chmod -x $(DEST)/lib/$(LIB)
+	sudo /usr/bin/chgrp dailout $(DEST)/bin/$(PROGRAM)
+	sudo usermod -a -G dailout $(USERNAME)
+
+.PHONY: clean
 clean:
-	rm -f $(PROGRAM) *.o core a.out rtxcmds.c
+	rm -f $(PROGRAM) $(LIB) *.o core a.out rtxcmds.c
 
 $(PROGRAM): $(OBJS) $(LIBS)
 	@rm -f $(PROGRAM)
-	$(LINK.c) -o $@ $(OBJS) $(LDLIBS)
+	$(LINK.c) $(LDFLAGS) -o $@ $(OBJS) $(LDLIBS)
 	@-$(CHOWN) $@ && chmod $(MODE) $@
+
+$(LIB): vrtx.o ipcio.o ttyio.o 
+	rm -f $(LIB)
+	$(AR) $(ARFLAGS) $(LIB) $(OBJS)
+	ranlib $(LIB)
 
 $(LIBS): 
 	@if [ "$(MAKELIBS)" -o ! -f $@ ]; then cd `dirname $@`/.. ; $(MAKE);fi

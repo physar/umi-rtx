@@ -121,6 +121,7 @@ char **argv;
     struct timeval timeo;
     int maxfd, oldmaxfd = 0;
     char hostname[MAXHOSTNAMELEN];
+    char cwd[PATH_MAX];
     int one = 1;
     char *which;
     struct flock lock;
@@ -153,7 +154,21 @@ char **argv;
     if (chdir(RTXD_DIR) != 0) errexit(RTXD_DIR,1);
     /*
      * Am I the one and only daemon.
-     */
+     *
+    if(access(strcat(RTXD_DIR,RTXD_LOCK), F_OK )){
+        printf("The File %s\t was not Found\n",strcat(RTXD_DIR,RTXD_LOCK));
+    }
+    if(access(strcat(RTXD_DIR,RTXD_LOCK), R_OK )){
+        printf("The File %s\t cannot be read\n",strcat(RTXD_DIR,RTXD_LOCK));
+    }
+    lockfd = open(strcat(RTXD_DIR,RTXD_LOCK),O_RDWR|O_CREAT,0660);
+    */
+    if(getcwd(cwd, sizeof(cwd) ) != NULL){
+        printf("Current working dir %s\n",cwd);
+    }
+    if(access(RTXD_LOCK, F_OK )){
+        printf("The File %s\t was not Found\n",RTXD_LOCK);
+    }
     lockfd = open(RTXD_LOCK,O_RDWR|O_CREAT,0660);
     if (lockfd == -1) errexit(RTXD_LOCK,1);
 

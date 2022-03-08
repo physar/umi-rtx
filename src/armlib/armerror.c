@@ -16,7 +16,7 @@
 /*                                                              /  \      */
 /*                                                              \/\/      */
 /* This file is copyright protected.                                      */
-/* Copyright (c) 1991-2022 Universiteit van Amsterdam                     */
+/* Copyright (c) 1991-2003 Universiteit van Amsterdam                     */
 /* This software or any part thereof may only be used for non-commercial  */
 /* research or purposes, as long as the author and University are         */
 /* mentioned. Commercial use without explicit prior written consent by    */
@@ -39,42 +39,95 @@
 /*
  * $Id$
  *
- * defines for the daemon
+ * Translation of armerrno to an error message.
  */
 
-#ifndef _rtxd_h
-#define _rtxd_h
+#include <rtx.h>
+#include <stdio.h>
 
-#include <sys/socket.h>
-#include <sys/un.h>
-#include <netinet/in.h>
+char*
+armstrerror(err)
+int err;
+{
+    static char mess[100];
 
+    switch(err) {
+ /* communications faults */
+    case COMMS_FAULT:
+    case COMMS_NOT_READY:
+	return "Communication failure";
+    case COMMS_NOT_INITIALISED:
+	return "Communication not initialised";
 
-#define RTXD_DIR		".."
-#define RTXD_LOCK		"./locks/rtx"
-#define RTXD_LOG		"./logs/rtxlog"
-/* Full pathname, must be used from programs to sockets and locks */
-#define RTXD_SOCKET		"./ports/rtx-socket"
-#define RTXD_PORTINFO		"./ports/rtx"
-#define RTXD_DOWNLOAD		"./robot/rtxdriver"
-#define RTXD_PATH		"./bin/rtxd"
+ /* response errors */
+    case NO_RESPONSE:
+	return "No response";
+    case RESPONSE_OVERRUN:
+	return "Too many bytes in response";
+    case RESPONSE_INCOMPLETE:
+	return "Not enough bytes in response";
+    case RESPONSE_UNKNOWN:
+	return "Unexpected response";
 
-typedef struct client {
-    struct client       *c_next;
-    int                 c_fd;
-    int                 c_pid;
-    int                 c_uid;
-    int                 c_flags;
-    time_t              c_last;
-    time_t              c_first;
-    union {
-        struct sockaddr_un C_un;
-        struct sockaddr_in C_in;
-    } C_u;
-} client;
+ /* arm warnings */
+    case ARM_IN_PROGRESS:
+    case ARM_STORED:
+	return "Reserved for future ROM releases";
+    case ARM_AXIS_BUSY:
+	return "Axis busy, wait until axis is stopped";
+    case ARM_DECODER_BUSY:
+	return "IP command decoder busy, try again later";
+    case ARM_PARAMETER_OOR:
+	return "Parameter out of range";
 
-#define c_un C_u.C_un
-#define c_in C_u.C_in
+    case READ_ONLY:
+    case ARM_READ_ONLY:
+	return "Read only variable";
+    case SELECTION_OOR:
+    case ARM_SELECTION_OOR:
+	return "Selection out of range";
+    case ARM_COMMAND_OOR:
+    case ARM_NOT_SUPPORTED:
+	return "Illegal command";
+    case ARM_FRAME_TIMEOUT:
+	return "Not enough bytes in command";
+    case ARM_FRAME_OVERRUN:
+	return "Too many bytes in command";
+    case ARM_PARITY:
+	return "Parity error";
+    case ARM_RESTARTED:
+	return "The IP was restarted. restart";
 
-void rtx_log(client *clnt, ...); 
-#endif /* _rtxd_h */
+    case CHECKSUM:
+	return "Checksum error";
+    case PARAMETER_OOR:
+	return "Parameter out of range";
+    case TOGGLE_MODE_OFF:
+	return "Toggle mode off (must be on for arm_interpolate)";
+    case PRIVILEGE_VIOLATION:
+	return "Privileged command";
+    case ARM_IN_USE:
+	return "RTX in use";
+    case COMMAND_OOR:
+	return "Command not supported";
+    case NO_CONNECTION:
+	return "Cannot connect to daemon";
+    case LOST_CONNECTION:
+	return "Lost connection to RTX daemon";
+    case CONNECTION_READ_ONLY:
+	return "Connection read-only";
+    default:
+	sprintf(mess, "Unknown error code 0x%x", err);
+	return mess;
+    }
+}
+
+int
+armperror(s)
+char *s;
+{
+    if (s && *s)
+	return fprintf(stderr,"%s: %s\n",s,armstrerror(armerrno));
+    else
+	return fprintf(stderr,"%s\n",armstrerror(armerrno));
+}

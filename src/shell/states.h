@@ -16,7 +16,7 @@
 /*                                                              /  \      */
 /*                                                              \/\/      */
 /* This file is copyright protected.                                      */
-/* Copyright (c) 1991-2022 Universiteit van Amsterdam                     */
+/* Copyright (c) 1991-2003 Universiteit van Amsterdam                     */
 /* This software or any part thereof may only be used for non-commercial  */
 /* research or purposes, as long as the author and University are         */
 /* mentioned. Commercial use without explicit prior written consent by    */
@@ -39,42 +39,63 @@
 /*
  * $Id$
  *
- * defines for the daemon
+ * The defintions for the automaton.
  */
 
-#ifndef _rtxd_h
-#define _rtxd_h
+#ifndef _states_h
+#define _states_h
 
-#include <sys/socket.h>
-#include <sys/un.h>
-#include <netinet/in.h>
+#include <sys/types.h>
 
+extern int commanderr;
+#define CE_AMBIGUOUS	1
+#define CE_NOTFOUND	2
 
-#define RTXD_DIR		".."
-#define RTXD_LOCK		"./locks/rtx"
-#define RTXD_LOG		"./logs/rtxlog"
-/* Full pathname, must be used from programs to sockets and locks */
-#define RTXD_SOCKET		"./ports/rtx-socket"
-#define RTXD_PORTINFO		"./ports/rtx"
-#define RTXD_DOWNLOAD		"./robot/rtxdriver"
-#define RTXD_PATH		"./bin/rtxd"
-
-typedef struct client {
-    struct client       *c_next;
-    int                 c_fd;
-    int                 c_pid;
-    int                 c_uid;
-    int                 c_flags;
-    time_t              c_last;
-    time_t              c_first;
+typedef struct command {
+    char *cmd_string;
     union {
-        struct sockaddr_un C_un;
-        struct sockaddr_in C_in;
-    } C_u;
-} client;
+	caddr_t	CMD_val;
+	int     CMD_int;
+    } CMD_un;
+} command;
 
-#define c_un C_u.C_un
-#define c_in C_u.C_in
+#define cmd_val CMD_un.CMD_val
+#define cmd_int CMD_un.CMD_int
 
-void rtx_log(client *clnt, ...); 
-#endif /* _rtxd_h */
+typedef struct state {
+    command *s_cmd;
+    int s_lower, s_upper, s_count;
+    union {
+	struct state **S_states;
+	struct state *S_one;
+    } S_un;
+    struct state *s_nul, *s_prev;
+} state;
+
+#define s_states	S_un.S_states
+#define s_one		S_un.S_one
+
+typedef struct automaton {
+    state *au_start;
+    command *au_base;
+    int au_depth, au_ncmds;
+    void  (*au_errfun)();
+    caddr_t au_errarg;
+    void  (*au_okfun)();
+    caddr_t au_okarg;
+} automaton;
+
+automaton *addcommand(), *newautomaton(), *createautomaton(), *addalias(),
+	*delcommand(), *delalias();
+
+command *findcommand();
+char **completecommand();
+int commandindex();
+
+#define addokfun(a,fun,arg) \
+	(((a)->au_okfun = fun), ((a)->au_okarg = (caddr_t) arg), (a))
+
+#define adderrfun(a,fun,arg) \
+	(((a)->au_errfun = fun), ((a)->au_errarg = (caddr_t) arg), (a))
+
+#endif /* _states_h */

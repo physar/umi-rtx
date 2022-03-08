@@ -1,6 +1,6 @@
 MAKEFILE	= Makefile
 
-DEST		= .
+DEST		= ../..
 
 CPPFLAGS	= -I../../include/umi-drivers -I../../include/bsd
 
@@ -15,8 +15,9 @@ SRCS		= alive.c openipc.c runcpu.c stopcpu.c checksum.c download.c \
 
 OBJS		= $(SRCS:.c=.o)
 
-all: $(LIB)
+all: $(LIB) install
 
+.PHONY: clean
 clean:
 	rm -f $(LIB) $(OBJS)
 
@@ -25,6 +26,10 @@ $(LIB):	$(OBJS)
 	rm -f $(LIB)
 	$(AR) $(ARFLAGS) $(LIB) $(OBJS)
 	ranlib $(LIB)
+
+.PHONY: install
+install:
+	install $(LIB) $(DEST)/lib
 
 DEPGEN=/lib/cpp -M $(CPPFLAGS)
 
