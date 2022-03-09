@@ -58,9 +58,11 @@
  *
  */
 
+#include <stdio.h>
 #include "rtxcmds.h"
 #include "rtx.h"
 #include "ipcrt.h"
+#include "raw.h"
 
 static int current_ip;
 static int toggle_mode;
@@ -78,14 +80,15 @@ int rtxerr;
  * Start the communication with the robot.
  * Send the first commands.
  */
-static rerrs = 0, nreads = 0, nid = 0, svsim = 0, errresp = 0;
-static lasterr = 0, errcmd = 0, resync = 0;
+static int rerrs = 0, nreads = 0, nid = 0, svsim = 0, errresp = 0;
+static int lasterr = 0, errcmd = 0, resync = 0;
+
 
 int
 rtx_init_comms(tmode,debug)
 int tmode,debug;
 {
-    static first = 1;
+    static int first = 1;
     int len,ip;
     unsigned char resp[3];
 
@@ -215,7 +218,7 @@ int tmode,debug;
     return 0;
 }
 
-static getcharbefore(port,time)
+static int getcharbefore(port,time)
 unsigned long time;
 int port;
 {
@@ -410,6 +413,7 @@ int m;
 
 int
 rtx_resync(err)
+int err;
 {
     int m = toggle_mode;
     int ip = current_ip;
@@ -455,7 +459,7 @@ rtx_restart()
     unsigned char res[3];
     static int resps[10];
     int len;
-    static i;
+    static int i;
     static int first = 1;
     int t = toggle_mode;
 

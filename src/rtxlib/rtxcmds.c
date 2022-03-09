@@ -57,6 +57,7 @@
 #include "rtx.h"
 #include "rtxd.h"
 #include "rtxcmds.h"
+#include "raw.h"
 
 #define MOTOR2IP	motor2ip
 #define MOTOR2CTL	motor2ctl
@@ -224,6 +225,7 @@ static unsigned char rtx_response[2][3];
 static int rtx_response_len[2], rtx_response_err[2];
 int
 rtx_raw_command(ip,cmdlen,b1,b2,b3)
+int ip, cmdlen, b1, b2, b3;
 {
     int err;
     if (ip != IP0 && ip != IP1) {
@@ -242,6 +244,7 @@ rtx_raw_command(ip,cmdlen,b1,b2,b3)
 
 int
 rtx_raw_response(ip,len,resp)
+int ip;
 int *len;
 unsigned char *resp;
 {

@@ -34,7 +34,7 @@ The code has a number of dependencies on libraries which are not part of the bas
 
 These dependencies can also be installed by running the install-dependency.sh script.
 
-## build order
+## Build order
 
 The code is tested with the following build order of the libraries:
 

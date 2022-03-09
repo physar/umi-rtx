@@ -62,5 +62,5 @@ case ${ID} in
         exit 255
         ;;
 esac 
-exit 0
+# exit 0
 
