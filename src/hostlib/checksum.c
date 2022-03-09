@@ -3,6 +3,8 @@
  *
  * compute a checksum over nbytes starting at addr.
  */
+#include "checksum.h"
+
 int
 checksum(addr,len)
 char *addr;

@@ -43,6 +43,9 @@
  */
 
 #include "ipcrt.h"
+#include "openipc.h"
+#include "duartset.h"
+#include "duartrst.h"
 
 int
 runcpu()

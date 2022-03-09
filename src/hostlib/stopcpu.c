@@ -43,6 +43,7 @@
  */
 
 #include "ipcrt.h"
+#include "duartrst.h"
 
 int
 stopcpu()

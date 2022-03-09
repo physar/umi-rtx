@@ -56,6 +56,8 @@
 #include <unistd.h>
 #include <string.h>
 #include "ipcrt.h"
+#include "openipc.h" 
+#include "checksum.h"
 #define sun
 #include "m68kipc/exec.h"
 #include "m68kipc/a.out.h"
@@ -159,7 +161,7 @@ char *file;
 
     if (!INRAM(exec.a_entry)) {
 	fprintf(stderr,"Invalid entry point 0x%08lx\n",exec.a_entry);
-	fprintf(stderr,"Use ld -T %x\n",IPCOFFSET(TEXTSTART));
+	fprintf(stderr,"Use ld -T %x\n",(unsigned int)IPCOFFSET(TEXTSTART));
 	return -1;
     }
     addrp = PROGNAME;

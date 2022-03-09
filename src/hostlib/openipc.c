@@ -46,9 +46,11 @@
 #include <sys/file.h>
 #include <sys/fcntl.h>
 #include <sys/mman.h>
+#include <stdio.h>
 #include <unistd.h>
 #include <errno.h>
 #include "ipcrt.h"
+#include "duartset.h"
 
 #define VMEDEV		"/dev/vme32"
 #define VMEOFFSET	0xfb000000 /* sun 4/110 */

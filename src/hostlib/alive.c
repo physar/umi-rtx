@@ -16,7 +16,7 @@
 /*                                                              /  \      */
 /*                                                              \/\/      */
 /* This file is copyright protected.                                      */
-/* Copyright (c) 1991-2003 Universiteit van Amsterdam                     */
+/* Copyright (c) 1991-2022 Universiteit van Amsterdam                     */
 /* This software or any part thereof may only be used for non-commercial  */
 /* research or purposes, as long as the author and University are         */
 /* mentioned. Commercial use without explicit prior written consent by    */
@@ -43,6 +43,8 @@
  * (examine _ticks)
  * return truth value.
  */
+#include <unistd.h>
+#include "uptime.h"
 
 unsigned long ticks();
 

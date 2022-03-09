@@ -43,12 +43,15 @@
  */
 
 #include "ipcrt.h"
+#include "openipc.h"
+#include "checksum.h"
 #ifndef LINUX
 #include "m68kipc/a.out.h"
 #else
 #include "linux/a.out.h"
 #endif
 
+int
 validate()
 {
     struct exec *e;

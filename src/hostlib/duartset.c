@@ -43,6 +43,8 @@
  */
 
 #include "ipcrt.h"
+#include "openipc.h"
+#include "duartset.h"
 
 int
 duartset(mask)

@@ -45,6 +45,7 @@
 
 #include <stdio.h>
 #include "ipcrt.h"
+#include "openipc.h"
 
 unsigned long
 ticks()
@@ -60,6 +61,7 @@ ticks()
     return *(unsigned long *) (ipcbase + *addr);
 }
 
+int
 freq()
 {
     if (ipcbase == 0 && initipc() != 0)

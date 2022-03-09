@@ -43,6 +43,8 @@
  */
 
 #include "ipcrt.h"
+#include "openipc.h"
+#include "duartrst.h"
 
 int
 duartrst(mask)
