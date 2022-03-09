@@ -7,7 +7,7 @@ CFLAGS		= -g
 
 LDFLAGS		= 
 
-LIBS		= ../../lib/libarm.a  ../../lib/libvrtx.a ../../lib/libhost.a
+LIBS		= ../../lib/libarm.a ../../lib/libvrtx.a ../../lib/librtx.a ../../lib/libhost.a
 
 LDLIBS		= $(LIBS) -L/usr/local/gnu/lib -lreadline -ltermcap
 
