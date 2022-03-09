@@ -25,11 +25,11 @@ CFLAGS		= -DRTXD -DNOLOCKING -DDEBUG -Wno-unused-but-set-variable -g
 
 LDFLAGS		=  
 
-LIBS		= ../hostlib/libhost.a
+LIBS		= ../../lib/libhost.a ../../lib/librtx.a
 
 MAKEFILE	= makefile
 
-SRCS		= rtxd.c vrtx.c ipcio.c ttyio.c rtxcmds.c
+SRCS		= rtxd.c vrtx.c ipcio.c ttyio.c 
 
 OBJS		= $(SRCS:.c=.o)
 

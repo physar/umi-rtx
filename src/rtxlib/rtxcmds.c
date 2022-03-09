@@ -62,7 +62,8 @@
 #define MOTOR2IP	motor2ip
 #define MOTOR2CTL	motor2ctl
 
-extern int rtxdebug;
+extern int rtxerror; /* defined in ttyio.c */
+extern int rtxdebug; /* defined in ttyio.c */
 static int do_interpolate();
 
 static int
@@ -124,47 +125,47 @@ unsigned char *resp;
     if (resp[0] <= RESP_IP_RESTART && resp[0] > RESP_ACK) {
 	switch(resp[0]) {
 	case RESP_PROGRESS:
-	    rtxerr = ARM_IN_PROGRESS;
+	    rtxerror = ARM_IN_PROGRESS;
 	    return -1;
 	case RESP_STORED:
-	    rtxerr = ARM_STORED;
+	    rtxerror = ARM_STORED;
 	    return -1;
 	case RESP_AXIS_BUSY:
-	    rtxerr = ARM_AXIS_BUSY;
+	    rtxerror = ARM_AXIS_BUSY;
 	    return -1;
 	case RESP_IP_BUSY:
-	    rtxerr = ARM_DECODER_BUSY;
+	    rtxerror = ARM_DECODER_BUSY;
 	    return -1;
 	case RESP_PARAM_OOR:
-	    rtxerr = ARM_PARAMETER_OOR;
+	    rtxerror = ARM_PARAMETER_OOR;
 	    return -1;
 	case RESP_READ_ONLY:
-	    rtxerr = ARM_READ_ONLY;
+	    rtxerror = ARM_READ_ONLY;
 	    return -1;
 	case RESP_READ_ONLY1:
-	    rtxerr = ARM_READ_ONLY;
+	    rtxerror = ARM_READ_ONLY;
 	    return -1;
 	case RESP_SELECT_OOR:
-	    rtxerr = ARM_SELECTION_OOR;
+	    rtxerror = ARM_SELECTION_OOR;
 	    return -1;
 	case RESP_CMD_OOR:
-	    rtxerr = ARM_COMMAND_OOR;
+	    rtxerror = ARM_COMMAND_OOR;
 	    return -1;
 	case RESP_CMD_NOT_SUP:
-	    rtxerr = ARM_NOT_SUPPORTED;
+	    rtxerror = ARM_NOT_SUPPORTED;
 	    return -1;
 	case RESP_FRAME_TIMEO:
-	    rtxerr = ARM_FRAME_TIMEOUT;
+	    rtxerror = ARM_FRAME_TIMEOUT;
 	    return -1;
 	case RESP_FRAME_OVERRUN:
-	    rtxerr = ARM_FRAME_OVERRUN;
+	    rtxerror = ARM_FRAME_OVERRUN;
 	    return -1;
 	case RESP_PARITY_ERROR:
-	    rtxerr = ARM_PARITY;
+	    rtxerror = ARM_PARITY;
 	    return -1;
 	case RESP_IP_RESTART1:
 	case RESP_IP_RESTART:
-	    rtxerr = ARM_RESTARTED;
+	    rtxerror = ARM_RESTARTED;
 	    return -1;
 	}
     }
@@ -179,27 +180,27 @@ unsigned char *resp;
 	case RESP_DEF_READ1:
 	case RESP_DEF_WRITE1:
 	    if (resp[0] != expect) {
-		rtxerr = RESPONSE_UNKNOWN;
+		rtxerror = RESPONSE_UNKNOWN;
 		return -1;
 	   }
 	   return 0;
 	case RESP_IM_READ:
 	case RESP_DEF_READ2:
 	    if ((resp[0] & 0xf0) != expect) {
-		rtxerr = RESPONSE_UNKNOWN;
+		rtxerror = RESPONSE_UNKNOWN;
 		return -1;
 	    } else if (!checksum(resp[0],resp[1],resp[2])) {
-		rtxerr = CHECKSUM;
+		rtxerror = CHECKSUM;
 		return -1;
 	    }
 	    return 0;
 	case RESP_IM_WRITE:
 	case RESP_DEF_WRITE2:
 	    if ((resp[0] & 0xf0) != expect) {
-		rtxerr = RESPONSE_UNKNOWN;
+		rtxerror = RESPONSE_UNKNOWN;
 		return -1;
 	    } else if (!checksum(resp[0],b2,b3)) {
-		rtxerr = CHECKSUM;
+		rtxerror = CHECKSUM;
 		return -1;
 	    }
 	    return 0;
@@ -210,12 +211,12 @@ unsigned char *resp;
 	case RESP_STAT_CTL_3:
 	case RESP_STAT_CTL_4:
 	    if (resp[0] != expect) {
-		rtxerr = RESPONSE_UNKNOWN;
+		rtxerror = RESPONSE_UNKNOWN;
 		return -1;
 	    }
 	    return 0;
 	default:
-	    rtxerr = RESPONSE_UNKNOWN;
+	    rtxerror = RESPONSE_UNKNOWN;
 	    return -1;
     }
 }
@@ -229,14 +230,14 @@ int ip, cmdlen, b1, b2, b3;
 {
     int err;
     if (ip != IP0 && ip != IP1) {
-	rtxerr = SELECTION_OOR;
+	rtxerror = SELECTION_OOR;
 	return -1;
     }
 
     err = rtx_raw(ip,cmdlen,UBYTE(b1),UBYTE(b2),UBYTE(b3),
 	&rtx_response_len[ip],rtx_response[ip]);
     if (err)
-	rtx_response_err[ip] = rtxerr;
+	rtx_response_err[ip] = rtxerror;
     else
 	rtx_response_err[ip] = 0;
     return err;
@@ -251,11 +252,11 @@ unsigned char *resp;
     int i;
 
     if (ip != IP0 && ip != IP1) {
-	rtxerr = SELECTION_OOR;
+	rtxerror = SELECTION_OOR;
 	return -1;
     }
 
-    rtxerr = rtx_response_err[ip];
+    rtxerror = rtx_response_err[ip];
     *len = rtx_response_len[ip];
     if (rtx_response_err[ip] || rtx_response_len[ip] > 3 ||
 	    rtx_response_len[ip] < 1)
@@ -349,7 +350,7 @@ int mode;
     rtx_log((client *) 0,"called rtx_stop(%d)\n",mode);
 
     if (mode < 0 || mode >= NUMBER_OF_STOP_MODES) {
-	rtxerr = SELECTION_OOR;
+	rtxerror = SELECTION_OOR;
 	return -1;
     }
     if (rtx_do(IP0,1,CMD_XXXX_STOP | mode,0,0,&len,resp,RESP_ACK) == -1)
@@ -379,7 +380,7 @@ int bits;
     case YAW: b = bits >> 10; break;
     case GRIP: b = bits >> 12; break;
     default:
-	rtxerr = PARAMETER_OOR;
+	rtxerror = PARAMETER_OOR;
 	return 0;
     }
     return b & 0x3;
@@ -390,7 +391,7 @@ rtx_go(mode,bits)
 int mode;
 int bits;
 {
-    rtxerr = 0;
+    rtxerror = 0;
     if (mode == MANUAL_GO) {
 	int b[2],b1,b2;
 	int len, m;
@@ -401,7 +402,7 @@ int bits;
 	for (m = 0; m < NUMBER_OF_MOTORS; m++) {
 	    b[MOTOR2IP(m)] |= getbits(m,bits) << (MOTOR2CTL(m)*2);
 	}
-	if (rtxerr)
+	if (rtxerror)
 	    return -1;
 
 	b1 = b[IP0] & 0xff;
@@ -422,7 +423,7 @@ int bits;
 	for (m = 0; m < NUMBER_OF_MOTORS; m++) {
 	    cmd[MOTOR2IP(m)] |= NUMGO(getbits(m,bits)) << MOTOR2CTL(m);
 	}
-	if (rtxerr)
+	if (rtxerror)
 	    return -1;
 
 	if (rtx_do(IP0,1,cmd[IP0],0,0,&len,resp,RESP_ACK) == -1)
@@ -430,7 +431,7 @@ int bits;
 	if (rtx_do(IP1,1,cmd[IP1],0,0,&len,resp,RESP_ACK) == -1)
 	    return -1;
     } else {
-	rtxerr = PARAMETER_OOR;
+	rtxerror = PARAMETER_OOR;
 	return -1;
     }
     return 0;
@@ -476,7 +477,7 @@ int motor, code, *result;
     int len,cmd;
 
     if (code >= NUMBER_OF_DATA_CODES || code < 0) {
-	rtxerr = SELECTION_OOR;
+	rtxerror = SELECTION_OOR;
 	return -1;
     }
     switch (code) {
@@ -521,13 +522,13 @@ int motor, code, input;
     int len;
 
     if (code >= NUMBER_OF_DATA_CODES || code < 0) {
-	rtxerr = SELECTION_OOR;
+	rtxerror = SELECTION_OOR;
 	return -1;
     }
     switch (code) {
     case ACTUAL_POSITION:
     case ERROR:
-	rtxerr = ARM_READ_ONLY;
+	rtxerror = ARM_READ_ONLY;
 	return -1;
     case CURRENT_POSITION:
 	return rtx_do(MOTOR2IP(motor),3,CMD_IM_WRITE_CP | MOTOR2CTL(motor),
@@ -628,7 +629,7 @@ int *data;
     increments[0] = increments[1] = 0;
     for (m = 0; m < ZEDOWN; m++) {
 	if (data[m] > 7 || data[m] < -8) {
-	    rtxerr = PARAMETER_OOR;
+	    rtxerror = PARAMETER_OOR;
 	    return -1;
 	}
 	increments[MOTOR2IP(m)] |= (data[m] & 0xf) << (MOTOR2CTL(m) * 4);
@@ -659,7 +660,7 @@ int s;
         rtx_log(NULL, "rtx_soak %d", s);
    
     if (s < 0 || s >= NUMBER_OF_SOAK) {
-	rtxerr = SELECTION_OOR;
+	rtxerror = SELECTION_OOR;
 	return -1;
     }
     if (rtx_do(IP0,1,CMD_INIT+s,0,0,&len,resp,RESP_ACK) == -1)

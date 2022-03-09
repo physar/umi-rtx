@@ -92,7 +92,7 @@ static int ncmds = 0;
 
 static int rtx_resync(int err);
 
-int rtxerr;
+int rtxerror;
 
 /* sleep until 8 milliseconds after lasttime */
 static void
@@ -168,7 +168,7 @@ int tmode,debug;
     }
     if (len != 1 || (resp[0] != RESP_ACK && resp[0] != RESP_IP_RESTART &&
 		     resp[0] != RESP_IP_RESTART1)) {
-	    rtxerr = COMMS_FAULT;
+	    rtxerror = COMMS_FAULT;
             if (rtxdebug > 1)
                  rtx_log(NULL, "'%s' CMD_TOGGLE_OFF gives wrong response", "rtx_init_comms");
 	    return -1;
@@ -181,7 +181,7 @@ int tmode,debug;
     }
 
     if (len != 1) {
-	rtxerr = RESPONSE_OVERRUN;
+	rtxerror = RESPONSE_OVERRUN;
         if (rtxdebug > 1)
            rtx_log(NULL, "'%s' CMD_IDENTIFY gives multiple responses", "rtx_init_comms");
 	return -1;
@@ -195,14 +195,14 @@ int tmode,debug;
 	if (rtx_raw(IPDONTCARE,1,CMD_GO,0,0,&len,resp) == -1)
 	    return -1;
 	if (len != 1 || resp[0] != RESP_ACK) {
-	    rtxerr = COMMS_FAULT;
+	    rtxerror = COMMS_FAULT;
 	    return -1;
 	}
 	if (rtx_raw(IPDONTCARE,1,CMD_IDENTIFY,0,0,&len,resp) == -1)
 	    return -1;
 	if (len != 1 ||
 	    (resp[0] != RESP_IDENTIFY_0 && resp[0] != RESP_IDENTIFY_1)) {
-		rtxerr = COMMS_FAULT;
+		rtxerror = COMMS_FAULT;
 		return -1;
 	}
 	/* FALL THROUGH */
@@ -213,25 +213,25 @@ int tmode,debug;
            rtx_log(NULL, "'%s' CMD_IDENTIFY gives correct response", "rtx_init_comms");
 	break;
     default:
-	rtxerr = COMMS_FAULT;
+	rtxerror = COMMS_FAULT;
 	return -1;
     }
 
     if (rtx_raw(IPDONTCARE,1,CMD_TOGGLE_ONCE,0,0,&len,resp) == -1 ||
 	    len != 1 || resp[0] != RESP_ACK) {
-	rtxerr = COMMS_FAULT;
+	rtxerror = COMMS_FAULT;
 	return -1;
     }
 
     if (rtx_raw(IPDONTCARE,1,CMD_TOGGLE_OFF,0,0,&len,resp) == -1 || len != 1
 	    || (resp[0] != RESP_ACK && resp[0] != RESP_IP_RESTART &&
 		resp[0] != RESP_IP_RESTART1)) {
-	rtxerr = COMMS_FAULT;
+	rtxerror = COMMS_FAULT;
 	return -1;
     }
 
     if (rtx_raw(IPDONTCARE,1,CMD_IDENTIFY,0,0,&len,resp) == -1 || len != 1) {
-	rtxerr = COMMS_FAULT;
+	rtxerror = COMMS_FAULT;
 	return -1;
     }
 
@@ -240,13 +240,13 @@ int tmode,debug;
     case RESP_IP_RESTART1:
 	if (rtx_raw(IPDONTCARE,1,CMD_GO,0,0,&len,resp) == -1 || len != 1
 		|| resp[0] != RESP_ACK) {
-	    rtxerr = COMMS_FAULT;
+	    rtxerror = COMMS_FAULT;
 	    return -1;
 	}
 	if (rtx_raw(IPDONTCARE,1,CMD_IDENTIFY,0,0,&len,resp) == -1 || len != 1
 		||
 	    (resp[0] != RESP_IDENTIFY_0 && resp[0] != RESP_IDENTIFY_1)) {
-		rtxerr = COMMS_FAULT;
+		rtxerror = COMMS_FAULT;
 		return -1;
 	}
 	/* FALL THROUGH */
@@ -257,11 +257,11 @@ int tmode,debug;
            rtx_log(NULL, "'%s' CMD_IDENTIFY gives 2nd correct response", "rtx_init_comms");
 	break;
     default:
-	rtxerr = COMMS_FAULT;
+	rtxerror = COMMS_FAULT;
 	return -1;
     }
     if (ip == current_ip) {
-	rtxerr = COMMS_FAULT;
+	rtxerror = COMMS_FAULT;
 	return -1;
     }
 
@@ -270,7 +270,7 @@ int tmode,debug;
 	    len != 1 || resp[0] != RESP_ACK ||
 	    rtx_raw(IPDONTCARE,1,CMD_TOGGLE_ON,0,0,&len,resp) == -1 ||
 	    len != 1 || resp[0] != RESP_ACK) {
-		rtxerr = COMMS_FAULT;
+		rtxerror = COMMS_FAULT;
         if (rtxdebug > 1)
            rtx_log(NULL, "'%s' CMD_TOGGLE_ON fails at the end", "rtx_init_comms");
 		return -1;
@@ -323,13 +323,13 @@ unsigned char b1,b2,b3, *resp;
     if (!(inited ^ initing) ) {
         rtx_log((client *) 0,"rtx_raw fails on inited^initing (%d,%d)\n",
 		inited,initing);
-	rtxerr = COMMS_NOT_INITIALISED;
+	rtxerror = COMMS_NOT_INITIALISED;
 	return -1;
     }
 
     if (ip != IP0 && ip != IP1 && ip != IPDONTCARE) {
         rtx_log((client *) 0,"rtx_raw fails on ip (%d)\n",ip);
-	rtxerr = ARM_SELECTION_OOR;
+	rtxerror = ARM_SELECTION_OOR;
 	return -1;
     }
 
@@ -424,7 +424,7 @@ unsigned char b1,b2,b3, *resp;
 #if 0
 	printf("read too many: %02x\n", x & 0xff);
 #endif
-	rtxerr = RESPONSE_OVERRUN;
+	rtxerror = RESPONSE_OVERRUN;
 	return -1;
     }
     }
@@ -433,7 +433,7 @@ unsigned char b1,b2,b3, *resp;
 
     if (len == 0) {
 	rtx_resync(1);
-	rtxerr = NO_RESPONSE;
+	rtxerror = NO_RESPONSE;
 	return -1;
     }
 
@@ -481,17 +481,17 @@ unsigned char b1,b2,b3, *resp;
 	    break;
 	default:
 	    *resplen = 0;
-	    rtxerr = RESPONSE_UNKNOWN;
+	    rtxerror = RESPONSE_UNKNOWN;
 	    return -1;
     }
     if (ioerr) {
 	rtx_resync(1);
 	if (expect > len)
-	    rtxerr = RESPONSE_INCOMPLETE;
+	    rtxerror = RESPONSE_INCOMPLETE;
 	else if (expect < len)
-	    rtxerr = RESPONSE_OVERRUN;
+	    rtxerror = RESPONSE_OVERRUN;
 	else
-	    rtxerr = RESPONSE_UNKNOWN;
+	    rtxerror = RESPONSE_UNKNOWN;
 	*resplen = 0;
 	return -1;
     }
@@ -510,19 +510,19 @@ int m;
 
     if (m == toggle_mode)
 	return old;
-    rtxerr = COMMS_FAULT;
+    rtxerror = COMMS_FAULT;
     if (toggle_mode) {
 	if (rtx_raw(IPDONTCARE,1,CMD_TOGGLE_OFF,0,0,&len,resp) == -1 ||
 		len != 1 || resp[0] != RESP_ACK) {
-	    rtxerr = COMMS_FAULT; return -1;
+	    rtxerror = COMMS_FAULT; return -1;
 	}
 	if (rtx_raw(IPDONTCARE,1,CMD_TOGGLE_ONCE,0,0,&len,resp) == -1 ||
 		len != 1 || resp[0] != RESP_ACK) {
-	    rtxerr = COMMS_FAULT; return -1;
+	    rtxerror = COMMS_FAULT; return -1;
 	}
 	if (rtx_raw(IPDONTCARE,1,CMD_TOGGLE_OFF,0,0,&len,resp) == -1 ||
 		len != 1 || resp[0] != RESP_ACK) {
-	    rtxerr = COMMS_FAULT; return -1;
+	    rtxerror = COMMS_FAULT; return -1;
 	}
 	if (rtx_raw(IPDONTCARE,1,CMD_IDENTIFY,0,0,&len,resp) == -1 || len != 1
 		|| (resp[0] != RESP_IDENTIFY_0 && resp[0] != RESP_IDENTIFY_1))
@@ -534,7 +534,7 @@ int m;
 		|| (resp[0] != RESP_IDENTIFY_0 && resp[0] != RESP_IDENTIFY_1))
 	    return -1;
 	ip2 = resp[0] & RESP_IDENTIFY_MASK;
-	if (ip1 == ip2) { rtxerr = COMMS_FAULT; return -1; }
+	if (ip1 == ip2) { rtxerror = COMMS_FAULT; return -1; }
 	current_ip = ip2;
     } else {
 	if (rtx_raw(IPDONTCARE,1,CMD_TOGGLE_ON,0,0,&len,resp) == -1)
@@ -549,7 +549,7 @@ int m;
 		|| (resp[0] != RESP_IDENTIFY_0 && resp[0] != RESP_IDENTIFY_1))
 	    return -1;
 	ip2 = resp[0] & RESP_IDENTIFY_MASK;
-	if (ip1 == ip2) { rtxerr = COMMS_FAULT; return -1; }
+	if (ip1 == ip2) { rtxerror = COMMS_FAULT; return -1; }
 	current_ip = ip1;
     }
     toggle_mode = m;
@@ -578,12 +578,13 @@ rtx_resync(int err)
     (void) rtx_set_toggle_mode(rtx_set_toggle_mode(1-m));
     if (ip != current_ip) {
 	if (toggle_mode) {
-	    if (rtx_raw(IPDONTCARE,1,CMD_IDENTIFY,0,0,&len,resp) == -1)
+	    if (rtx_raw(IPDONTCARE,1,CMD_IDENTIFY,0,0,&len,resp) == -1) {
 		return lock=0,-1;
-		if (resp[0] & (RESP_IDENTIFY_MASK != 1 - current_ip)) {
-		    rtxerr = COMMS_NOT_INITIALISED;
-		    return lock=0,-1;
-		}
+            }
+	    if (resp[0] & (RESP_IDENTIFY_MASK != 1 - current_ip)) {
+	        rtxerror = COMMS_NOT_INITIALISED;
+		return lock=0,-1;
+	    }
 	} else {
 	    current_ip = 1 - current_ip;
 	    if (rtx_raw(IPDONTCARE,1,CMD_TOGGLE_ONCE,0,0,&len,resp) == -1)
@@ -800,11 +801,11 @@ libio *cmd;
 	break;
     default:
 	err = -1;
-	rtxerr = ARM_NOT_SUPPORTED;
+	rtxerror = ARM_NOT_SUPPORTED;
 	break;
     }
     if (err) {
-	cmd->what = rtxerr;
+	cmd->what = rtxerror;
     } else
 	cmd->what = 0;
 #if 0

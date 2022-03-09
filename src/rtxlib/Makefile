@@ -15,9 +15,10 @@ ARFLAGS		= crv
 
 CC		= gcc
 
-DEST		= .
+DEST		= ../..
 
-CPPFLAGS	= -I../../include/umi-drivers -I../daemon -DIPC
+CPPFLAGS	= -I../../include/umi-drivers 
+CPPFLAGS	= -I../../include/umi-drivers -I../daemon 
 
 CFLAGS		= -g
 
@@ -34,9 +35,9 @@ clean:
 	rm -f core a.out $(LIBRARY) $(OBJS) depend
 
 $(LIBRARY): $(OBJS)
-	rm -f $(LIBRARY)
-	$(AR) $(ARFLAGS) $(DEST)/$(LIBRARY) $(OBJS)
-	ranlib $(DEST)/$(LIBRARY)
+	rm -f $(DEST)/lib/$(LIBRARY)
+	$(AR) $(ARFLAGS) $(DEST)/lib/$(LIBRARY) $(OBJS)
+	ranlib $(DEST)/lib/$(LIBRARY)
 
 DEPGEN=/lib/cpp -M $(CPPFLAGS)
 
