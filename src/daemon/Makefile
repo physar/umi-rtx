@@ -53,7 +53,7 @@ install: $(PROGRAM) $(LIB)
 	install $(PROGRAM) $(DEST)/bin
 	install $(LIB) $(DEST)/lib
 	chmod -x $(DEST)/lib/$(LIB)
-	sudo /usr/bin/chgrp dailout $(DEST)/bin/$(PROGRAM)
+	$(CHOWN) $(DEST)/bin/$(PROGRAM)
 	sudo usermod -a -G dailout $(USERNAME)
 
 .PHONY: clean

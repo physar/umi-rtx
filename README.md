@@ -12,7 +12,52 @@ The gear ratio from the shoulder motor to the upper arm is twice that of the elb
 In addition, the gripper is automatically pointing along the radial line:
 This is achieved without needing to drive the yaw motor (angle R): the yaw is not only coupled to its own motor, but also coupled to the elbow motor!
 
-At the University of Amsterdam, the UMI-RTX robot was used to play chess [4], which it still can do (with code ported to Ubuntu 20.04).
+At the University of Amsterdam, the UMI-RTX robot was used to play chess [4], which it still can do (with this code ported to Ubuntu 20.04).
+
+## Installation
+
+### Prerequisites
+
+The code is tested on two Linux LTS distributions:
+
+* [Ubuntu 18.04 (Bionic Beaver)](https://releases.ubuntu.com/bionic)
+* [Ubuntu 20.04 (Focal Fossa)](https://releases.ubuntu.com/focal)
+
+The code has a number of dependencies on libraries which are not part of the basic configuration of an Ubuntu distribution. The following dependencies are known:
+
+``` bash
+* sudo apt update
+* sudo apt install gcc
+* sudo apt install libelf-dev
+* sudo apt install libreadline-dev
+```
+
+These dependencies can also be installed by running the install-dependency.sh script.
+
+## build order
+
+The code is tested with the following build order of the libraries:
+
+``` bash
+* cd src/rtxlib; make
+* cd src/armlib; make
+* cd src/hostlib; make
+* cd src/daemon; make
+* cd src/shell; make
+```
+
+## Execution
+
+The communication with the UMI-RTX robot is possible via one of your USB ports. Under Ubuntu this port is accessible via <tt>/dev/ttyUSB0</tt> (or a higher number when you connect multiple times). The communication with the robot is handled by a daemon with runs as a server in the background. Your applications can run as client in the forground. 
+
+As first example of such combination is the daemon and a shell.
+
+``` bash
+cd bin; sudo ./rtxd /dev/ttyUSB0
+cd bin; sudo ./rtxsh
+```
+
+## References
 
 [1] Tim Jones, <a href=http://davidbuckley.net/RS/History/LondonRobotics85/TimJonesUMI.htm>Developing a Personal Robot from Concept to Final Product</a>, Personal Robotics Seminar, London, UK, 3rd July 1985.
 

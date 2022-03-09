@@ -8,6 +8,7 @@ install_debian()
 
     sudo apt-get --yes --force-yes install gcc
     sudo apt-get --yes --force-yes install libelf-dev
+    sudo apt-get --yes --force-yes install libreadline-dev
     
     echo "-------"
     echo "Done..."
@@ -21,6 +22,7 @@ install_redhat()
 
     sudo yum -y install gcc 
     sudo yum -y install libelf-dev
+    sudo yum -y install libreadline-dev
 
     echo "-------"
     echo "Done..."

@@ -43,20 +43,22 @@
  *
  * Note: this program won't run under Solaris because Solaris nlist
  * doesn't work on a.out format, until you find your own nlist.
+ *
+ * Yet, under Ubuntu /usr/include/nlist.h is installed with libelf-dev
  */
 #include <sys/types.h>
 #include <sys/file.h>
 #include <sys/fcntl.h>
 #include <sys/mman.h>
-#include "ipcrt.h"
 #include <errno.h>
-#define sun
-#include "m68kipc/exec.h"
-#include "m68kipc/a.out.h"
-#include "nlist.h"
+#include <nlist.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
+#include "ipcrt.h"
+#define sun
+#include "m68kipc/exec.h"
+#include "m68kipc/a.out.h"
 
 static int
 setresetvector(stack,pc)
