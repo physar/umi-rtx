@@ -61,7 +61,7 @@ Once you are in the shell, you can simple type 'help'.
 
 ## Troubleshooting
 
-Output of the daemon is printed in a log, which you can find in <tt>umi-rtx/logs</a>. When corrected working the log should display only the message
+Output of the daemon is printed in a log, which you can find in <tt>umi-rtx/logs</tt>. When corrected working the log should display only the message
 
 ``` bash
 (RTXD) Restarting, listening to port ----- on this machine
