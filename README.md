@@ -57,6 +57,59 @@ cd bin; sudo ./rtxd /dev/ttyUSB0
 cd bin; sudo ./rtxsh
 ```
 
+Once you are in the shell, you can simple type 'help'.
+
+## Troubleshooting
+
+Output of the daemon is printed in a log, which you can find in <tt>umi-rtx/logs</a>. When corrected working the log should display only the message
+
+``` bash
+(RTXD) Restarting, listening to port ----- on this machine
+```
+
+If you started the daemon without argument, it will try to use the IPC protocol (and fail):
+
+``` bash
+(RTXD) Restarting, listening to port 33849 on nb-ros<br>
+/dev/ipc0: No such file or directory
+/dev/vme32: No such file or directory
+(RTXD) Can not open IPC
+(RTXD) 'IPC' should start with '/dev/'
+(RTXD) No rtx_ops found for 'IPC'
+(RTXD) Can not talk to RTX
+```
+
+If you start the daemon with out super user rights (forget to use sudo), you can get one of these messages:
+
+``` bash
+Current working dir ~/git/umi-rtx
+./ports/rtx: Permission denied
+```
+
+When you forgot to connect the USB (or the UMI-RTX is not on), you will get:
+
+``` bash
+(RTXD) Couldn't open '/dev/ttyUSB0'
+(RTXD) No rtx_ops found for '/dev/ttyUSB0'
+(RTXD) Can not talk to RTX
+```
+
+If you try to start the shell with root permisions (forget to use sudo),  you will get the following error messages:
+
+``` bash
+RTX command line interface $Revision$
+======================= ARM version 8 March 2022
+downloadlib has problems connecting to UNIX socket: Permission denied
+[armlib:downloadlib] failed
+init: Retry the connection
+======================= ARM version 8 March 2022
+downloadlib has problems connecting to UNIX socket: No such file or directory
+[armlib:downloadlib] failed
+init: Cannot connect to daemon
+```
+
+
+
 ## References
 
 [1] Tim Jones, <a href=http://davidbuckley.net/RS/History/LondonRobotics85/TimJonesUMI.htm>Developing a Personal Robot from Concept to Final Product</a>, Personal Robotics Seminar, London, UK, 3rd July 1985.
