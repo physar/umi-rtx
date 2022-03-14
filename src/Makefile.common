@@ -7,3 +7,6 @@ MACHINE         =       Linux
 CPP=cpp
 
 DEPGEN = $(CPP) -M $(CPPFLAGS)
+
+%.o: %.c
+	$(CC) -c $(INCLUDE) $(CFLAGS) $<

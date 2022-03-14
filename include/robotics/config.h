@@ -1,6 +1,6 @@
 /**************************************************************************/
 /* config.h                                                     /\/\      */
-/* Version 2.0   --  November 1994                              \  /      */
+/* Version 2.0.3 -- March 2022                                  \  /      */
 /*                                                              /  \      */
 /* Author: Arnoud Visser, Joris van Dam                      _  \/\/  _   */
 /*         University of Amsterdam                          | |      | |  */
@@ -17,29 +17,15 @@
 /* Release note 2.0: changed names!                             \/\/      */
 /* Release note 2.0.1: Moved gnuchessr (based on gnuchess 3.1) to rtxipc  */
 /* Release note 2.0.2: Interface to gnuchess 6.2.9 (Feb 2022)             */
+/* Release note 2.0.3: data files on relative path (March 2022)           */
 /**************************************************************************/
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#ifdef SCIENCEPARK
-#define	UMI_RTX   "/opt/prac/robotics/data/umi.rtx"
-#define	PIECES    "/opt/prac/robotics/data/pieces.rtx"
-#define	BOARD     "/opt/prac/robotics/data/board.rtx"
-// #define GNUCHESS  "/home/arnoud/packages/gnuchess-6.2.9/src/gnuchess"
-#define GNUCHESS  "/opt/prac/robotics/rtxipc/bin/gnuchessr"
-#endif
-#ifdef GENE
-#define	UMI_RTX   "/home/stud/robotics/data/umi.rtx"
-#define	PIECES    "/home/stud/robotics/data/pieces.rtx"
-#define	BOARD     "/home/stud/robotics/data/board.rtx"
-#define GNUCHESS  "/home/stud/robotics/bin/gnuchessr"
-#endif
-#ifdef OLD
-#define	UMI_RTX   "/home/arnoud/src/robotica/data/umi.rtx"
-#define	PIECES    "/home/arnoud/src/robotica/data/pieces.rtx"
-#define	BOARD     "/home/arnoud/src/robotica/data/board.rtx"
-#define GNUCHESS  "/home/mtjspaan/linux/bin/gnuchessr"
-#endif
+#define	UMI_RTX   "../data/umi.rtx"
+#define	PIECES    "../data/pieces.rtx"
+#define	BOARD     "../data/board.rtx"
+#define GNUCHESS  "../bin/gnuchessr"
 
 #define	MYBOARD   "board.rtx"
 #define MYPIECES  "pieces.rtx"

@@ -1,0 +1,89 @@
+<?xml version='1.0'?>
+<robot>
+<name>'Umi-Rtx Robot software Stam, Janssen, den Boer en v. Inge'</name>
+<number_of_links>7</number_of_links>
+  <link>
+    <name>'      zed'</name>
+    <theta>     90.00</theta>
+    <alpha>      0.00</alpha>
+    <a>         67.50</a>
+    <d>       1082.00</d>
+    <ECmin>  -3478.00</ECmin>
+    <ECmax>      0.00</ECmax>
+    <Rmin>       0.00</Rmin>
+    <Rmax>     925.00</Rmax>
+    <RT>         2.00</RT>
+  </link>
+  <link>
+    <name>' shoulder'</name>
+    <theta>      0.00</theta>
+    <alpha>      0.00</alpha>
+    <a>        253.50</a>
+    <d>         95.00</d>
+    <ECmin>  -2630.00</ECmin>
+    <ECmax>   2630.00</ECmax>
+    <Rmin>     -90.00</Rmin>
+    <Rmax>      90.00</Rmax>
+    <RT>         1.00</RT>
+  </link>
+  <link>
+    <name>'    elbow'</name>
+    <theta>      0.00</theta>
+    <alpha>      0.00</alpha>
+    <a>        253.50</a>
+    <d>         80.00</d>
+    <ECmin>  -2630.00</ECmin>
+    <ECmax>   2206.00</ECmax>
+    <Rmin>    -180.00</Rmin>
+    <Rmax>     151.00</Rmax>
+    <RT>         1.00</RT>
+  </link>
+  <link>
+    <name>'      yaw'</name>
+    <theta>      0.00</theta>
+    <alpha>    -90.00</alpha>
+    <a>          0.00</a>
+    <d>          0.00</d>
+    <ECmin>  -1071.00</ECmin>
+    <ECmax>   1071.00</ECmax>
+    <Rmin>    -110.00</Rmin>
+    <Rmax>     110.00</Rmax>
+    <RT>         1.00</RT>
+  </link>
+  <link>
+    <name>'    pitch'</name>
+    <theta>      0.00</theta>
+    <alpha>     90.00</alpha>
+    <a>          0.00</a>
+    <d>          0.00</d>
+    <ECmin>  -2642.00</ECmin>
+    <ECmax>    108.00</ECmax>
+    <Rmin>     -98.00</Rmin>
+    <Rmax>       4.00</Rmax>
+    <RT>         1.00</RT>
+  </link>
+  <link>
+    <name>'     roll'</name>
+    <theta>      0.00</theta>
+    <alpha>      0.00</alpha>
+    <a>          0.00</a>
+    <d>        189.00</d>
+    <ECmin>  -3560.00</ECmin>
+    <ECmax>   4882.00</ECmax>
+    <Rmin>    -132.00</Rmin>
+    <Rmax>     181.00</Rmax>
+    <RT>         1.00</RT>
+  </link>
+  <link>
+    <name>'  gripper'</name>
+    <theta>      0.00</theta>
+    <alpha>      0.00</alpha>
+    <a>          0.00</a>
+    <d>          0.00</d>
+    <ECmin>    -30.00</ECmin>
+    <ECmax>   1200.00</ECmax>
+    <Rmin>       0.00</Rmin>
+    <Rmax>      90.00</Rmax>
+    <RT>         0.00</RT>
+  </link>
+</robot>

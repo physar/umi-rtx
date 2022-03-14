@@ -29,7 +29,5 @@ pract: $(OBJS)
 	@$(AR) $(ARFLAGS) $(PRACLIB) $(OBJS)
 
 umiinit: 
-	$(CC) -H $(CFLAGS) $(CSRC) $(INCLUDE) -DMAIN -o umiinit ../../lib/libarm.a 
-
-%.o: %.c
-	$(CC) -c $(INCLUDE) $(CFLAGS) $<
+	$(CC) -H $(CFLAGS) $(CSRC) $(INCLUDE) -DMAIN -o ../../bin/umiinit ../../lib/libarm.a 
+	
