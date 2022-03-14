@@ -39,11 +39,13 @@ These dependencies can also be installed by running the install-dependency.sh sc
 The code is tested with the following build order of the libraries:
 
 ``` bash
+* cd src/hostlib; make
 * cd src/rtxlib; make
 * cd src/armlib; make
-* cd src/hostlib; make
 * cd src/daemon; make
 * cd src/shell; make
+* cd src/umi; make
+
 ```
 
 ## Execution

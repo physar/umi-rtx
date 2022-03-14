@@ -1,0 +1,115 @@
+I transferred the UMI RTX drivers from RCS to CVS in order to have a central
+repository.
+
+Matthijs Spaan, 15-11-2002.
+
+Started porting the stuff to Linux after tagging the code
+matthijs_working_solaris8, 20-11-2002.
+
+Rest of original README (by Casper Dik):
+NOTE:
+	The source code before the partial port to Solaris 2.x
+	has RCS revision tag "baseline".
+
+Directories:
+
+
+IPC part:
+    crt0	- runtime environment for IPC
+    rtxlib	- the IPC code for the robot library.
+    downloads	- downloadable programs, including rtxdriver
+
+HOST part:
+    hostlib	- function for communication with the IPC from the host.
+    tools	- several programs that print info about, start, stop IPC
+		  (mainly wrappers for functions in hostlib)
+    daemon	- the rtxdaemon (communcates with rtxdriver running on IPC,
+	          or directly with the robot if a port is specified as 
+		      argument.
+    armlib	- the library that must be linked with programs that use RTX
+    shell	- commandline interface to daemon and robot.
+    test	- misc programs (init is important)
+
+COMMON:
+    include	- all include files that are used in more than one directory
+
+Compile:
+    edit pathnames in include/rtxd.h
+    these pathnames point to files used for interfacing between rtxd and
+    armlib (This includes the full pathname to rtxd and rtxdriver)
+    configure Makefile.std and Makefile.cross
+
+    at toplevel:
+    % make
+
+Note: some code will compile under Solaris 2.x but not run.
+ipccore is one of them.
+
+Caveats:
+    The IPC code expects the existance of a gcc that understands
+    `-b sun3' (for C source) and accts accordingly.
+    Effectively, this requires gcc 2.x.
+
+    The Makefiles depend on SunOS Make(1) predefined rules.
+
+    Rtxd expects the target processor and the host processor to have the
+    same byte order and similar int sizes and alignments.
+
+    Downloads run for 10 days. At that point the clock wraps and the world
+    ends.
+
+Implementation of the library functions.
+
+All Turbo Pascal library function have been converted to their C equivalents.
+There are some differences:
+
+a) No error parameter. Instead the global variable armerrno contains the
+   error code. There are also the added functions armstrerror() and 
+   armperror() (see strerror(3) and perror(3))
+b) No enumerated types. We use #defines instead. Enums give no advantages
+   in C, except for a lot of complaints from lint(1).
+c) The functions all return 0 on success, -1 on error.
+d) There are extra error codes.
+e) To use these functions you must #include <rtx.h> and link with libarm.a
+f) Arm_raw_response and arm_raw_command are also avaliable as a
+   command/response pair: arm_raw
+
+Problems with the documentation provided with RTX:
+
+In `Using intelligent peripherals communication'
+
+    Sending commands to IPs.
+
+    It was observed that
+	a) a second command must not be initiated until 8ms have passed
+	   after the start of the previous command.
+	b) a command must be completed within 8ms.
+	c) There is no requirement to send a command each 8ms.
+	    (the documentation suggests otherwise)
+
+    Consequently, no command is issued each 8ms, but only when needed.
+
+    IP0 and IP1 exchanged (table 1, 2, pp 8/9)
+
+    Response to version command (undocumented)
+     0x20 byte byte or 0x21 byte byte.
+
+    Because of the little endian nature of the IPs, we assume this
+    is minor major version, but we could be wrong.
+
+    The GO command gives an ACK (0x0) when it has indeed been reset.
+    If it was already running, the response is IDENTIFY (0x20 + IP#)
+
+    After resetting amn IP it might/or might not toggle.
+    (See rtxlib/raw.c)
+    When a GO command is issued after a reset, the IPs are in non-toggle
+    mode.
+
+Inside RTX:
+    Use no parity, not even. (p25)
+
+
+Programming RTX using the library:
+
+    W1 and W2 are transposed in the table. (on p 16)
+    This is mentioned in the Read.me and was implemented.
