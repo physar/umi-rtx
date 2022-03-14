@@ -45,6 +45,8 @@ The code is tested with the following build order of the libraries:
 * cd src/daemon; make
 * cd src/shell; make
 * cd src/umi; make
+* cd src/xml_parser; make
+* cd src/inverse; make
 
 ```
 
