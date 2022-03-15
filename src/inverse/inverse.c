@@ -1,4 +1,4 @@
-/* robotica.c */
+/* /* Code inspired by a solution from Jaap Kreykamp an Chris Niekel (1994) */
 
 #include <ctype.h>
 #include <stdio.h>
