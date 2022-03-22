@@ -27,7 +27,7 @@
 #define	BOARD     "../data/board.rtx"
 #define GNUCHESS  "../bin/gnuchessr"
 
-#define	MYBOARD   "board.rtx"
-#define MYPIECES  "pieces.rtx"
+#define	MYBOARD   "../tmp/board.rtx"
+#define MYPIECES  "../tmp/pieces.rtx"
 
 #endif /* CONFIG_H */

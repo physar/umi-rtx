@@ -26,4 +26,4 @@ pract:
 	@ar crv $(PRACLIB) $(MYOBJ)
 
 rtxinit:
-	$(CC) -H $(CFLAGS) $(SRCS) $(INCLUDE) -DMAIN  -o ../../bin/rtxinit ../../lib/libarm.a $(PRACLIB)  ../../lib/libinverse.a ../../lib/libpathplan.a ../../lib/libxmlparser.a -lm
+	$(CC) -H $(CFLAGS) $(SRCS) $(INCLUDE) -DMAIN  -o ../../bin/rtxinit ../../lib/libarm.a $(PRACLIB)  ../../lib/libinverse.a ../../lib/libpathplan.a ../../lib/libxmlparser.a ../../lib/libmatrix.a ../../lib/libstub.a -lm

@@ -10,7 +10,7 @@ LIBRARY		= $(PRAC)/lib/libpathplan.a
 
 PRACLIB         = $(PRAC)/lib/libpract.a
 
-CFLAGS		+= -DARNOUD -I$(PRAC)/include/robotics
+CFLAGS		+= -g -DARNOUD -I$(PRAC)/include/robotics
 
 CSRC		= init_pathplan.c pathplan.c Path_plan.c
 ASRC		=

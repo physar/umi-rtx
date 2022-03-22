@@ -48,7 +48,8 @@ init_pathplan()
         fclose (fp);
 	printf("Read information about board from file:\n\t'%s'.\n",BOARD);
 #else
-	read_xml_chess_board (BOARD,&board);
+	if (read_xml_chess_board (BOARD,&board) < 0)
+		return;
 #endif
 
 #if 0
@@ -62,10 +63,12 @@ init_pathplan()
         fclose(fp);
 	printf("Read information about pieces from file:\n\t'%s'.\n",PIECES);
 #else
-	read_xml_chess_set (PIECES,&schaak_stukken);
+	if (read_xml_chess_set (PIECES,&schaak_stukken) < 0)
+		return;
 #endif
      /* initialise board */
         stub_init_board (&board,&schaak_stukken);
+        spp_draw_board (board);
 
      /* and write back to local file */
         if ((fp = fopen(MYBOARD,"w")) == NULL)

@@ -68,7 +68,7 @@
 #ifdef SCIENCEPARK
 #define Name_File "/opt/prac/robotics/rtxipc/robot/name_file"
 #else
-#define Name_File "/home/rtxipc/robot/name_file"
+#define Name_File "../data/name_file"
 #endif
 
 static  char    user_name[L_cuserid];

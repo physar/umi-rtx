@@ -109,7 +109,7 @@ write_xml_chess_set (char *name, chess_set_t *s)
    chess_piece_t *piece;
 
     fd = fopen (name, "w");
-    if (fd < 0)
+    if (fd == NULL)
     {
         perror(name);
         fprintf(stderr,"Sorry, cannot store the lengths of the arm.\n");
@@ -152,7 +152,7 @@ read_xml_chess_set (char *name, chess_set_t *s)
    chess_piece_t *piece;
 
     fd = fopen (name, "r");
-    if (fd < 0)
+    if (fd == NULL)
     {
         perror(name);
         fprintf(stderr,"Sorry, cannot read the lengths of the arm.\n");

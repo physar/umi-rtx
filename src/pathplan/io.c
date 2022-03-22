@@ -9,7 +9,7 @@
 
 #define OK 0
 
-void load_board_pp(board)
+int load_board_pp(board)
 	chess_board_t *board;
 {
 	FILE 		*chess_stream;
@@ -20,7 +20,7 @@ void load_board_pp(board)
 	if (chess_stream == NULL)
 	{
 		printf("Error in 'load_board'; couldn't open file.\n");
-		return;     
+		return -1;     
 	}
 
 
@@ -32,10 +32,8 @@ void load_board_pp(board)
 	if (fclose(chess_stream) != OK)
 	{
 		printf("Error in 'load_board'; couldn't close file.\n");
-		return;     
+		return EXIT_SUCCESS;     
 	}
-
-	fclose(chess_stream);
 }
 
 void write_board_pp(board)

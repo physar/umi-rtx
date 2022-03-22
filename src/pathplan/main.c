@@ -83,6 +83,8 @@ int main()
 
     init_pathplan();
 
+    printf("after init_pathplan\n");
+
     cmove = New(chess_move_tm);
     hmove = New(chess_move_tm);
 
@@ -90,12 +92,13 @@ int main()
     scanf("%c%c%c%c", &(cmove->from_row), &(cmove->from_col),
                       &(cmove->to_row), &(cmove->to_col));
 
-    hmove->from_row = '0';
-    hmove->from_col = '0';
-    hmove->to_row = '3';
-    hmove->to_col = '3';
+    hmove->from_row = '4';
+    hmove->from_col = '6';
+    hmove->to_row = '4';
+    hmove->to_col = '7';
 
     Path_plan(hmove, cmove, &xyz_path);
+    printf("after Path_plan\n");
 
     print_xyz_list(xyz_path);
 

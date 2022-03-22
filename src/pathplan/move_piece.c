@@ -120,9 +120,12 @@ xyz_list_t  remove_piece(board, move, trans_matrix)
 
 	piece = identify_piece(board, move->to_row, move->to_col);
 	z = SAFE_HEIGHT;
-	if (piece == NULL)
+	if (piece == NULL) {
+                printf("No piece to remove\n");
 		return NULL;           /* geen stuk om te verwijderen */
+        }
 
+        printf("There is a piece to remove at %d, %d\n", C2I(move->to_row), C2I(move->to_col));
  	/* pak het stuk op */
 	remove_xyz = pick_up(board, move->to_row, move->to_col);
 	change_height(remove_xyz, z);

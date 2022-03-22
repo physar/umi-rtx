@@ -95,7 +95,7 @@ write_xml_robot (char *name, robot_t *r)
    int i;
 
     fd = fopen (name, "w");
-    if (fd < 0)
+    if (fd == NULL)
     {
         perror(name);
         fprintf(stderr,"Sorry, cannot store the lengths of the arm.\n");
@@ -141,7 +141,7 @@ read_xml_robot (char *name, robot_t *r)
    char tag[50];
 
     fd = fopen (name, "r");
-    if (fd < 0)
+    if (fd == NULL)
     {
         perror(name);
         fprintf(stderr,"Sorry, cannot read the lengths of the arm.\n");

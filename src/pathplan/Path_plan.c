@@ -49,9 +49,16 @@ void Path_plan(hm, cm, traject)
 
 	puts("Path Planning: Start");
 
-	load_board_pp(&board);
+	if(load_board_pp(&board) < 0)
+		return;
+
+        print_board(board);
+
+	puts("Path Planning: Step2");
 
 	make_move_list(&board, cm, hm, traject);
+
+	puts("Path Planning: Step3");
 
 	write_board_pp(&board);
 
@@ -69,24 +76,41 @@ void make_move_list(board, cm, hm, traject)
 	xyz_list_t     move_list;
 	MAT44          transform_matrix;
 
+	puts("make_move_list: Start");
+
 	/* init transformatie matrix */
 	b2l_matrix(board, transform_matrix); 
+
+	puts("make_move_list: Step2");
 
 	/* update board structure */	
 	update_board_strike(board, hm);
 	update_board_move(board, hm);
 
+	puts("make_move_list: Step3");
+
 	/* verwijdert geslagen stuk */
 	remove_list = remove_piece(board, cm, transform_matrix);
 		
+	puts("make_move_list: Step4");
+
 	update_board_strike(board, cm);
+
+	puts("make_move_list: Step5");
 
 	/* verplaatst zwart stuk */
 	move_list   = move_piece(board, cm, transform_matrix);
 
+	puts("make_move_list: Step6");
+
 	*traject    = add_xyz(remove_list, move_list);
 
+	puts("make_move_list: Step7");
+
 	update_board_move(board, cm);
+
+	puts("make_move_list: End");
+
 
 }
 
@@ -97,16 +121,32 @@ void update_board_strike(board, move)
 	chess_board_t  *board;
 	chess_move_tm   *move;
 {      
+        if(board == NULL) {
+ 	    fprintf(stderr, "Cannot update strike with empty board\n");
+        }
+
+        if(move == NULL) {
+ 	    fprintf(stderr, "Cannot update strike with empty move\n");
+        }
+
+        puts("Start of update_board_strike()");
 	chess_piece_t 	*to_pos   = board->field[C2I(move->to_row)]
 			                        [C2I(move->to_col)];
 	int		 nr;    
 
+        printf("Checking if there is a piece on row %d and %d (%d,%d)\n", move->to_row, move->to_col, C2I(move->to_row), C2I(move->to_col));
+
 	if (to_pos != NULL)   /* er moet een stuk verwijderd worden */
 	{
+                puts("Step2 of update_board_strike()");
 		nr = find_garbage(board, to_pos->side); /* vrije positie */
+                puts("Step3 of update_board_strike()");
+                printf("Board-garbage %s exist, with side %d and pos %d\n", board->garbage ? "does" : "doesn't", to_pos->side, abs(nr)-1); 
 		board->garbage[to_pos->side][abs(nr)-1] = to_pos;
+                puts("Step4 of update_board_strike()");
 		board->field[C2I(move->to_row)][C2I(move->to_col)] = NULL;
 	}
+        puts("End of update_board_strike()");
 }
 
 

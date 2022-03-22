@@ -243,7 +243,7 @@ write_xml_chess_board (char *name, chess_board_t *board)
    chess_piece_t *piece;
 
     fd = fopen (name, "w");
-    if (fd < 0)
+    if (fd == NULL)
     {
         perror(name);
         fprintf(stderr,"Sorry, cannot store the details of the board.\n");
@@ -328,7 +328,7 @@ read_xml_chess_board (char *name, chess_board_t *board)
    chess_piece_t *piece;
 
     fd = fopen (name, "r");
-    if (fd < 0)
+    if (fd == NULL)
     {
         perror(name);
         fprintf(stderr,"Sorry, cannot read the details of board.\n");
