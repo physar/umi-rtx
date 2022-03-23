@@ -1,0 +1,15 @@
+<?xml version='1.0'?>
+<chess_board>
+    <x>165.00</x>
+    <y>165.00</y>
+    <z> 0.00</z>
+    <n1> 0.00</n1>
+    <n2> 0.00</n2>
+    <n3> 1.00</n3>
+    <theta> 0.00</theta>
+    <delta_x>38.50</delta_x>
+    <delta_y>38.50</delta_y>
+    <board_thickness>18.00</board_thickness>
+    <sur_x>15.00</sur_x>
+    <sur_y>15.00</sur_y>
+</chess_board>

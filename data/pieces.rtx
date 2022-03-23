@@ -1,0 +1,132 @@
+<?xml version='1.0'?>
+<chess_set>
+<number_of_pieces>16</number_of_pieces>
+  <piece>
+    <kind>'  pawn'</kind>
+    <location>a2</location>
+    <height>39.00</height>
+    <diameter> 9.00</diameter>
+    <state>1</state>
+    <side>'white'</side>
+  </piece>
+  <piece>
+    <kind>'  pawn'</kind>
+    <location>b2</location>
+    <height>39.00</height>
+    <diameter> 9.00</diameter>
+    <state>1</state>
+    <side>'white'</side>
+  </piece>
+  <piece>
+    <kind>'  pawn'</kind>
+    <location>c2</location>
+    <height>39.00</height>
+    <diameter> 9.00</diameter>
+    <state>1</state>
+    <side>'white'</side>
+  </piece>
+  <piece>
+    <kind>'  pawn'</kind>
+    <location>d2</location>
+    <height>39.00</height>
+    <diameter> 9.00</diameter>
+    <state>1</state>
+    <side>'white'</side>
+  </piece>
+  <piece>
+    <kind>'  pawn'</kind>
+    <location>e2</location>
+    <height>39.00</height>
+    <diameter> 9.00</diameter>
+    <state>1</state>
+    <side>'white'</side>
+  </piece>
+  <piece>
+    <kind>'  pawn'</kind>
+    <location>f2</location>
+    <height>39.00</height>
+    <diameter> 9.00</diameter>
+    <state>1</state>
+    <side>'white'</side>
+  </piece>
+  <piece>
+    <kind>'  pawn'</kind>
+    <location>g2</location>
+    <height>39.00</height>
+    <diameter> 9.00</diameter>
+    <state>1</state>
+    <side>'white'</side>
+  </piece>
+  <piece>
+    <kind>'  pawn'</kind>
+    <location>h2</location>
+    <height>39.00</height>
+    <diameter> 9.00</diameter>
+    <state>1</state>
+    <side>'white'</side>
+  </piece>
+  <piece>
+    <kind>'  rook'</kind>
+    <location>h1</location>
+    <height>41.00</height>
+    <diameter>15.00</diameter>
+    <state>1</state>
+    <side>'white'</side>
+  </piece>
+  <piece>
+    <kind>'  rook'</kind>
+    <location>a1</location>
+    <height>41.00</height>
+    <diameter>15.00</diameter>
+    <state>1</state>
+    <side>'white'</side>
+  </piece>
+  <piece>
+    <kind>'knight'</kind>
+    <location>g1</location>
+    <height>58.00</height>
+    <diameter> 9.00</diameter>
+    <state>1</state>
+    <side>'white'</side>
+  </piece>
+  <piece>
+    <kind>'knight'</kind>
+    <location>b1</location>
+    <height>58.00</height>
+    <diameter> 9.00</diameter>
+    <state>1</state>
+    <side>'white'</side>
+  </piece>
+  <piece>
+    <kind>'bishop'</kind>
+    <location>f1</location>
+    <height>56.00</height>
+    <diameter>10.00</diameter>
+    <state>1</state>
+    <side>'white'</side>
+  </piece>
+  <piece>
+    <kind>'bishop'</kind>
+    <location>c1</location>
+    <height>56.00</height>
+    <diameter>10.00</diameter>
+    <state>1</state>
+    <side>'white'</side>
+  </piece>
+  <piece>
+    <kind>' queen'</kind>
+    <location>d1</location>
+    <height>63.00</height>
+    <diameter>19.00</diameter>
+    <state>1</state>
+    <side>'white'</side>
+  </piece>
+  <piece>
+    <kind>'  king'</kind>
+    <location>e1</location>
+    <height>71.00</height>
+    <diameter>18.00</diameter>
+    <state>1</state>
+    <side>'white'</side>
+  </piece>
+</chess_set>
