@@ -7,6 +7,7 @@
 #include "path.h"
 #include "config.h"
 #include "matrix.h"
+#include "spp.h"
 
 
 #define GRIPPER_OPEN    30
@@ -22,33 +23,11 @@
 
 /* #define VERBOSE */
 
-typedef struct chess_move_tm {
-  char from_col, to_col;                /* valid are '0' + 0 to '0' + 7 */
-  char from_row, to_row;                /* valid are '0' + 0 to '0' + 7 */
-} chess_move_tm;
-
 int spp_to_garb;			/* moving to garbage ? */
 MAT44 spp_trans;			/* transformation matrix */
 
 void stub_init_pp();
 void stub_init_board ();
-void spp_path ();
-void spp_read_board ();
-void spp_write_board ();
-void spp_recol_gove ();
-void spp_to_garbage ();
-void spp_move ();
-xyz_list_t spp_pickup ();
-xyz_list_t spp_safe_travel ();
-xyz_list_t spp_place ();
-void spp_close ();
-void spp_high_above ();
-xyz_list_t spp_node ();
-void spp_creatcol_eat ();
-void spp_board_to_cart ();
-void spp_draw_piec ();
-void spp_draw_board ();
-void spp_free_board ();
 void old_stub_Path_plan ();
 
 static int  chess_verify(move)

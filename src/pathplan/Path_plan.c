@@ -1,5 +1,7 @@
 /* Path-plan unit */
 
+#include <stdlib.h>
+
 #ifndef ARNOUD
 #include "queue.h"
 #include "queue.c"
@@ -38,6 +40,8 @@ void update_board_strike();
 void update_board_move();
 #endif
 
+static void print_board(chess_board_t  *board);      
+
 void Path_plan(hm, cm, traject)
 	chess_move_tm 	*hm, *cm;
 	xyz_list_t 	*traject;
@@ -49,10 +53,10 @@ void Path_plan(hm, cm, traject)
 
 	puts("Path Planning: Start");
 
-	if(load_board_pp(&board) < 0)
+	if(load_board_pp(&board) != EXIT_SUCCESS)
 		return;
 
-        print_board(board);
+        print_board(&board);
 
 	puts("Path Planning: Step2");
 
@@ -169,7 +173,7 @@ void update_board_move(board, move)
 
 /* print het bord en de geslagen stukken, alleen voor het testen       */
 
-void print_board(board)       
+static void print_board(board)       
 	chess_board_t  *board;
 {
 	char		r, c;

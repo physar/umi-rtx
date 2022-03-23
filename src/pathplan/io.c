@@ -20,7 +20,7 @@ int load_board_pp(board)
 	if (chess_stream == NULL)
 	{
 		printf("Error in 'load_board'; couldn't open file.\n");
-		return -1;     
+		return EXIT_FAILURE;     
 	}
 
 
@@ -32,8 +32,9 @@ int load_board_pp(board)
 	if (fclose(chess_stream) != OK)
 	{
 		printf("Error in 'load_board'; couldn't close file.\n");
-		return EXIT_SUCCESS;     
+		return EXIT_FAILURE;     
 	}
+	return EXIT_SUCCESS;     
 }
 
 void write_board_pp(board)

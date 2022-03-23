@@ -12,9 +12,11 @@
 #include "basics.h"
 #include "config.h"
 #include "xml_parser.h"
+#include "spp.h"
 
 void stub_init_board();
 #endif
+
 
 void
 init_pathplan()

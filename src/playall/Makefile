@@ -9,6 +9,7 @@ ROBOTICSHOME = /opt/stud/robotics/assistance/
 ROBOTICSHOME = /opt/stud/robotics
 ROBOTICSHOME = /opt/prac/robotics
 ROBOTICSHOME = /home/arnoud/onderwijs/ZSB/assistance/repository/robotics
+ROBOTICSHOME = ../..
 SOFTWAREHOME = ${ROBOTICSHOME}/software4students
 #SOFTWAREHOME = ../zsb
 BINARYHOME = ${ROBOTICSHOME}/bin
@@ -20,18 +21,18 @@ CP = cp -vu
 
 CC = gcc
 CFLAGS = -O2 -g -Wall
-INCLUDE = -I${ROBOTICSHOME}/include
-LIBS = ${ROBOTICSHOME}/lib/$(MACHINE)/libstub.a \
- ${ROBOTICSHOME}/lib/$(MACHINE)/libumi.a \
- ${ROBOTICSHOME}/lib/$(MACHINE)/libxmlparser.a \
- ${ROBOTICSHOME}/lib/$(MACHINE)/libmatrix.a \
- ${ROBOTICSHOME}/lib/$(MACHINE)/librtxmove.a \
- ${ROBOTICSHOME}/lib/$(MACHINE)/libchess.a -lm
-LIBS = ${ROBOTICSHOME}/lib/$(MACHINE)/libstub.a \
- ${ROBOTICSHOME}/robotics/lib/$(MACHINE)/libmatrix.a \
- ${ROBOTICSHOME}/robotics/lib/$(MACHINE)/libchess.a -lm
-LIBS = ${ROBOTICSHOME}/lib/$(MACHINE)/libumi.a \
-       ${ROBOTICSHOME}/lib/$(MACHINE)/libarm.a -lm
+INCLUDE = -I${ROBOTICSHOME}/include/robotics
+LIBS = ${ROBOTICSHOME}/lib/libstub.a \
+ ${ROBOTICSHOME}/lib/libumi.a \
+ ${ROBOTICSHOME}/lib/libxmlparser.a \
+ ${ROBOTICSHOME}/lib/libmatrix.a \
+ ${ROBOTICSHOME}/lib/librtxmove.a \
+ ${ROBOTICSHOME}/lib/libchess.a -lm
+LIBS = ${ROBOTICSHOME}/lib/libstub.a \
+ ${ROBOTICSHOME}/robotics/lib/libmatrix.a \
+ ${ROBOTICSHOME}/robotics/lib/libchess.a -lm
+LIBS = ${ROBOTICSHOME}/lib/libumi.a \
+       ${ROBOTICSHOME}/lib/libarm.a -lm
 
 all: playall 
 
