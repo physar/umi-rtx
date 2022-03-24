@@ -82,7 +82,7 @@ Initialize (void)
 #ifdef CHESSTOOL
   setlinebuf (stdout);
   /* setvbuf(stdout,NULL,_IOLBF,BUFSIZ); */
-  printf ("Chess\n");
+  printf ("Chess 3.1\n");
   if (Level == 0 && !TCflag)
     Level = 15;
 #endif /* CHESSTOOL */
