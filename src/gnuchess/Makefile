@@ -67,6 +67,9 @@ gnuchessr: gnuchess.o robdsp.o
 	$(CC) $(CFLAGS) $(HASH) $(BOOK) $(CHESSTOOL) -o gnuchessr gnuchess.o robdsp.o
 
 
+gnuchess.o: gnuchess.c gnuchess.h 
+	$(CC) $(CFLAGS) $(BOOK) -c gnuchess.c
+
 robdsp.o: robdsp.c gnuchess.h version.h
-	$(CC) $(CFLAGS) $(HASH) $(BOOK) -DCHESSTOOL -c robdsp.c
+	$(CC) $(CFLAGS) $(HASH) $(CHESSTOOL) -c robdsp.c
 

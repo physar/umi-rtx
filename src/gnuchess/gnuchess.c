@@ -983,6 +983,8 @@ GetOpenings (void)
   struct BookEntry *entry;
   unsigned short mv, *mp, tmp[100];
 
+  printf("Opening the book %s\n", BOOK);
+
   if ((fd = fopen (BOOK, "r")) == NULL)
     fd = fopen ("gnuchess.book", "r");
   if (fd != NULL)
