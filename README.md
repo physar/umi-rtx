@@ -50,6 +50,7 @@ The code is tested with the following build order of the libraries:
 * cd src/inverse; make
 * cd src/stub_pp; make
 * cd src/pathplan; make
+* cd src/gnuchess; make
 * cd src/game; make
 * cd src/playall; make
 
