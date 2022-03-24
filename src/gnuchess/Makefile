@@ -45,7 +45,7 @@ INSTALLDIR = ../..
 LCURSES=-lcurses -ltermcap
 HASH=	-DHASHFILE=\"$(LIBDIR)/gnuchess.hash\"
 HASH=
-BOOK=	-DBOOK=\"../data/gnuchess.book\"
+BOOK=	-DBOOK=\"./data/gnuchess.book\"
 CHESSTOOL= -DCHESSTOOL
 CHESSTOOL=
 #CC= cc

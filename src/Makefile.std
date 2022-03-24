@@ -14,6 +14,6 @@ CFLAGS +=-DSVR4
 endif
 
 CC=gcc
-CFLAGS +=-Wall
+CFLAGS +=-Wall -g
 
 include ../Makefile.common

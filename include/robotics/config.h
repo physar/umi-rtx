@@ -25,7 +25,7 @@
 #define	UMI_RTX   "../data/umi.rtx"
 #define	PIECES    "../data/pieces.rtx"
 #define	BOARD     "../data/board.rtx"
-#define GNUCHESS  "../bin/gnuchessr"
+#define GNUCHESS  "./bin/gnuchessr"
 
 #define	MYBOARD   "../tmp/board.rtx"
 #define MYPIECES  "../tmp/pieces.rtx"

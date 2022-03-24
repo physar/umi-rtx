@@ -48,6 +48,8 @@
 #include "comm.h"
 #include "armraw.h"
 
+static int arm_debug = 0;
+
 int
 arm_raw_command(ip,cmdlen,b1,b2,b3)
 int ip,cmdlen,b1,b2,b3;
@@ -86,8 +88,10 @@ int toggle, debug;
     libio rtxparams;
     int err;
 
-    if(debug>0)
-       printf("======================= ARM version 8 March 2022\n");
+    arm_debug = debug;
+
+    if(arm_debug>0)
+       printf("======================= ARM version 24 March 2022\n");
 
     rtxparams.params[0] = toggle;
     rtxparams.params[1] = debug;
@@ -148,7 +152,9 @@ int mode;
 {
     libio rtxparams;
 
-    printf("arm_stop(%d)\n",mode);
+
+    if(arm_debug>0)
+        printf("arm_stop(%d)\n",mode);
 
     rtxparams.params[0] = mode;
     rtxparams.params[1] = 2; /* AVI: added June 2014 */

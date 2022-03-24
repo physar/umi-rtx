@@ -17,7 +17,7 @@ DEST		= ../..
 
 CPPFLAGS	= -I../../include/umi-drivers
 
-CFLAGS		= -g -fPIE
+CFLAGS		= -g -fPIE ${CPPFLAGS}
 
 MAKEFILE	= Makefile
 

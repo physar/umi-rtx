@@ -49,7 +49,7 @@ mode_t mode;
   extern int debug;
          int no_scanned;
 
-  printf("inside get_command\n");
+  printf("inside get_command(%s)\n", command);
 
   debug = 1;
   if(rocade) {
@@ -274,7 +274,7 @@ joint_list_t l;
 int
 main()
 {
-  char command[80];
+  char command[80] = "black";
   xyz_list_t traject;
   joint_list_t configurations = NULL;
   int validMove;
@@ -294,7 +294,7 @@ main()
   if(0) init_arm();
 #endif
 
-  printf("before get_command\n");
+  printf("before get_command(%s)\n", command);
 
   do {
 #if 1

@@ -130,6 +130,9 @@ chess_init()
             fgets(buf, BSIZE, from); // GNU Chess 6.2.9 has 4 extra lines
             fgets(buf, BSIZE, from); // GNU Chess 6.2.9 has 4 extra lines
             gnuchess_major = 6;
+        } else {
+            fprintf(stderr, "Communicating with background programs %s\n", buf);
+            gnuchess_major = 6;
         }
 
         if (blackflag) {
@@ -270,6 +273,8 @@ char *command;
                         return(NULL);
                 is_inited++;
         }
+
+        printf("inside chess_command(%s)\n", command);
 
 	i = sscanf(command,"%s",s);
 	if (i == EOF || s[0] == 0) {

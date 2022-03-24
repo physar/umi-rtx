@@ -238,7 +238,7 @@ static float f_post_init[FNUMBER] = {
 void
 umi_read_init_data()
 {
-    FILE *idata = fopen("init.dat","r");
+    FILE *idata = fopen("../data/init.dat","r");
     char buf[128];
     int m = 0;
     if (idata == 0) {
@@ -319,11 +319,13 @@ arm_init_position()
 int
 main()
 {
+    int debug = 0;
+
     armerrno = 0;
     printf("U.M.I. RTX Robot Arm\n");
     printf("====================\n");
     printf("Initialisation Program $Revision$\n");
-    arm_init_comms(1,2);
+    arm_init_comms(1,debug);
     arm_init_position();
     exit(armerrno != 0);
 }

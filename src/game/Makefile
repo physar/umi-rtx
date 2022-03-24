@@ -17,7 +17,7 @@ OBJS		= chessraw.o
 INCLUDE+=-I../pathplan -I../inverse
 INCLUDE+=-I../../include/robotics
 
-CPPFLAGS+=$(INCLUDE) 
+CPPFLAGS+=$(INCLUDE) -g
 
 all:		$(LIBRARY) pract chess
 

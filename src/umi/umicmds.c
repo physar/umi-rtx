@@ -98,6 +98,7 @@ void umi_init()
         int     cnt;
         int     stat;
         int     uis;
+        int     debug = 0;
 
         if(arm_general_status(&stat) == OK) {
 
@@ -134,7 +135,7 @@ void umi_init()
          * Load the commands to the server                    
          */
         initiation_ready = 0;
-        if ((arm_init_comms(1,2)) == WRONG)
+        if ((arm_init_comms(1,debug)) == WRONG)
                 armperror("init connections ");
         if (arm_restart() == WRONG)
                 armperror("restart");
