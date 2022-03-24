@@ -1,0 +1,33 @@
+UMI RTX Robot Arm
+=================
+
+Version   Who   Date        Comments
+=======   ===   ====        ========
+000.000   Ben   01 Jul 86   First try
+000.001   Ben   01 Jul 86   (a) Pitch corrected to -98
+                            (b) Yaw range acknowledged as +/- 110
+000.100   Ben   28 Jan 87   Yaw reduced to +/- 90 for pre-production update ki
+
+This file contains the limits to all degrees of freedom
+(to define the limit positions during initialisation) and
+a position for the arm to go to following initialistaion
+(End position).
+
+These values are standard values, set in the factory, but
+may be changed to suit your arm and needs. Units are mm for
+Zed and Grip(approx) and degrees for the rest. You should
+not change the order of the axes, but may add any comments
+you like after the End position value in each line. Data
+begins after the period(.) in the first column below.
+
+
+ Limit    End     Comments . . . .
+  pos     pos     Axis      Standard Values
+.
+   0.0   -5.0     Zed          0.0  -5.0
+  90.0    0.0     Shoulder    90.0   0.0
+-180.0    0.0     Elbow     -180.0   0.0
+-200.0    0.0     Yaw       -200.0   0.0
+ -98.0    0.0     Pitch      -98.0   0.0
+-132.0    0.0     Roll      -132.0   0.0
+   0.0    0.0     Grip         0.0   0.0
