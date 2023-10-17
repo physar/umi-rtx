@@ -14,6 +14,9 @@ This is achieved without needing to drive the yaw motor (angle R): the yaw is no
 
 At the University of Amsterdam, the UMI-RTX robot was used to play chess [4], which it still can do (with this code ported to Ubuntu 20.04).
 
+Note that based on this code also a ROS2 interface was build. This code can also be found at <a href=https://github.com/gardegu/LAB42_RTX_control>github</a>. 
+Details on this implementation can be found in their internship report [5].
+
 ## Installation
 
 ### Prerequisites
@@ -128,4 +131,6 @@ init: Cannot connect to daemon
 
 [3] Universal Machine Intelligence Ltd, <a href=https://staff.fnwi.uva.nl/a.visser/education/ZSB/MaintenanceManualForRTX.pdf>Maintenance Manual for RTX </a>, August 1987.
 
-[4] Groen, F., der Boer, G., van Inge, A., and Stam, R. (1992). <a href=https://ieeexplore.ieee.org/abstract/document/245137>A chess playing robot: lab course in robot sensor integration</a>. In Instrumentation and Measurement Technology Conference, 1992.  IMTC ’92., 9th IEEE, pages 261–26
+[4] Groen, F., der Boer, G., van Inge, A., and Stam, R. (1992). <a href=https://ieeexplore.ieee.org/abstract/document/245137>A chess playing robot: lab course in robot sensor integration</a>. In Instrumentation and Measurement Technology Conference, 1992.  IMTC ’92., 9th IEEE, pages 261–264
+
+[5] Guillaume Garde and Théo Massa, <a href=https://staff.fnwi.uva.nl/a.visser/education/ZSB/2023/UmiRtxRos2interface.pdf>A ROS 2 Interface for the UMI-RTX robotic arm</a>, internship report, École Nationale Supérieure de Techniques Avancées Bretagne, August 21, 2023.
